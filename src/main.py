@@ -15,18 +15,26 @@ def show_welcome():
     print()
 
 
-def show_help():
-    print("\nAvailable commands:")
-    print("  /help          Show available commands")
-    print("  /exit          Exit the application")
-    print("  /clear         Clear the terminal")
-    print("  /models        List supported models")
-    print("  /use <model>   Switch active model")
-    print("  /add           Add an API key")
-    print("  /history       Show conversation history")
-    print("  /clear-history Clear conversation history")
-    print()
 
+def show_help():
+    print("\nAvailable Commands")
+    print("-" * 45)
+
+    commands = [
+        ("/help", "Display this help message"),
+        ("/exit", "Exit the application"),
+        ("/clear", "Clear the terminal screen"),
+        ("/models", "List available AI providers"),
+        ("/use <provider>", "Switch between AI providers"),
+        ("/add", "Add or update an API key"),
+        ("/history", "Display conversation history"),
+        ("/clear-history", "Clear conversation history"),
+    ]
+
+    for command, description in commands:
+        print(f"  {command:<22} {description}")
+
+    print("-" * 45)
 
 
 def handle_command(command, state, session):
@@ -151,8 +159,7 @@ def chat_loop():
     session = ChatSession()
     while True:
         try:
-            user_input = input("\nYou: ").strip()
-
+            user_input = input(f"\nYou ({state['name']}): ").strip()
             if not user_input:
                 continue
 
